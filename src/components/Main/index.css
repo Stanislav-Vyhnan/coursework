@@ -1,0 +1,52 @@
+main {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.writeTxt {
+    max-width: 500px;
+    min-width: 500px;
+    max-height: 600px;
+    min-height: 600px;
+    opacity: 70%;
+    font-size: 20px;
+    margin: 10px;
+    padding: 5px;
+    background: white;
+    overflow: auto;
+    color: black;
+}
+
+.writeTxt span {
+    color: rgb(9, 189, 9);
+    font-weight: 500;
+}
+
+b {
+    font-size: 20px;
+    color: white;
+}
+
+.serch {
+    display: flex;
+    flex-direction: column;
+}
+
+.serch input {
+    font-size: 18px;
+    height: 30px;
+}
+
+.serch button {
+    font-size: 18px;
+    height: 40px;
+    transition-duration: 0.4s;
+}
+
+.serch button:hover {
+    background-color: #555555;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}

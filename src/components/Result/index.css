@@ -1,0 +1,9 @@
+.result {
+    width: 400px;
+    height: 500px;
+    opacity: 70%;
+    background: white;
+    margin: 20px;
+    padding: 5px;
+    display: none;
+}
