@@ -1,26 +1,29 @@
 import React, { useRef, useEffect } from 'react';
 import './index.css';
-import Result from '../Result';
+import checkRef from './checkRef';
+import SettingsSearch from '../SettingsSearch';
 
 export default function WriteTxt() {
     const textRef = useRef(null);
     const fragmentRef = useRef(null);
-    const regRef = useRef(null);
-    const strictRef = useRef(null);
-    const selFragmRef = useRef(null);
-    // regRef.current.checked,
-    // strictRef.current.checked,
-    // selFragmRef.current.checked;
-    useEffect(() => textRef.current.focus());
+    const regRef = useRef(false);
+    const strictRef = useRef(false);
+    const selFragmRef = useRef(false);
 
+    useEffect(() => textRef.current.focus());
     const search = () => {
         const textSplited = textRef.current.textContent
-            .replace(/([.?!])\s*(?=[A-ZА-Я])/g, '$1|')
+            .replace(/([.?!])\s*(?=[A-ZА-ЯІ])/g, '$1|')
             .split('|');
+        console.log(textSplited);
         const fragment = fragmentRef.current.value;
-        const result = textSplited.map((el) =>
-            el.includes(fragment) ? `<span>${el}</span>` : el
-        );
+        const result = textSplited.map((el) => {
+            return checkRef(el, fragment, [
+                regRef.current.checked,
+                strictRef.current.checked,
+                selFragmRef.current.checked,
+            ]);
+        });
         textRef.current.innerHTML = result.join(' ');
     };
 
@@ -37,34 +40,16 @@ export default function WriteTxt() {
             </div>
             <div className="serch">
                 <b>Налаштування пошуку</b>
-                <div className="settings">
-                    <div className="pin">
-                        <label className="switch">
-                            <input type="checkbox" ref={regRef} />
-                            <span className="slider round"></span>
-                        </label>
-                        <span>Ігнорування реєстру</span>
-                    </div>
-                    <div className="pin">
-                        <label className="switch">
-                            <input type="checkbox" ref={strictRef} />
-                            <span className="slider round"></span>
-                        </label>
-                        <span>Строгий пошук</span>
-                    </div>
-                    <div className="pin">
-                        <label className="switch">
-                            <input type="checkbox" ref={selFragmRef} />
-                            <span className="slider round"></span>
-                        </label>
-                        <span>Виділення фрагменту</span>
-                    </div>
-                </div>
-                <input placeholder="Введіть фрагмент" ref={fragmentRef} />
+                <SettingsSearch
+                    {...{ regRef, strictRef, selFragmRef, search }}
+                />
+                <input
+                    placeholder="Введіть фрагмент"
+                    ref={fragmentRef}
+                    onChange={search}
+                />
                 <button onClick={search}>Search</button>
             </div>
-
-            <Result />
         </main>
     );
 }

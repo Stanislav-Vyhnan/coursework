@@ -1,0 +1,33 @@
+.serch {
+    display: flex;
+    flex-direction: column;
+}
+.serch b {
+    margin-bottom: 5px;
+}
+.serch input {
+    font-size: 18px;
+    height: 30px;
+    margin-top: 5px;
+}
+
+.serch button {
+    font-size: 18px;
+    height: 40px;
+    transition-duration: 0.4s;
+    display: none;
+}
+
+.serch button:hover {
+    background-color: #555555;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px 15px 10px 0px;
+}
