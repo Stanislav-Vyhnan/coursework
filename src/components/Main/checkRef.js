@@ -13,7 +13,5 @@ export default function checkRef(str, frag, ref) {
 }
 
 const includ = (el, frag, original) => {
-    return el.includes(frag)
-        ? `<span id="coincidence">${original}</span>`
-        : original;
+    return el.includes(frag) ? `<span>${original}</span>` : original;
 };

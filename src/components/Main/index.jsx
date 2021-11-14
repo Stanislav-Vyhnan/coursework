@@ -6,26 +6,34 @@ import SettingsSearch from '../SettingsSearch';
 export default function WriteTxt() {
     const textRef = useRef(null);
     const fragmentRef = useRef(null);
+
     const regRef = useRef(false);
     const strictRef = useRef(false);
     const selFragmRef = useRef(false);
 
     useEffect(() => textRef.current.focus());
+
     const search = () => {
+        const refChecked = [
+            regRef.current.checked,
+            strictRef.current.checked,
+            selFragmRef.current.checked,
+        ];
+
         const textSplited = textRef.current.textContent
             .replace(/([.?!])\s*(?=[A-ZА-ЯІ])/g, '$1|')
             .split('|');
+
         const fragment = fragmentRef.current.value;
         if (fragment === '') return;
+
         const result = textSplited.map((el) => {
-            return checkRef(el, fragment, [
-                regRef.current.checked,
-                strictRef.current.checked,
-                selFragmRef.current.checked,
-            ]);
+            return checkRef(el, fragment, refChecked);
         });
+
         textRef.current.innerHTML = result.join(' ');
     };
+
     const reset = () => {
         const text = textRef.current.textContent;
         textRef.current.innerHTML = text;
