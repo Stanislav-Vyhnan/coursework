@@ -15,8 +15,8 @@ export default function WriteTxt() {
         const textSplited = textRef.current.textContent
             .replace(/([.?!])\s*(?=[A-ZА-ЯІ])/g, '$1|')
             .split('|');
-        console.log(textSplited);
         const fragment = fragmentRef.current.value;
+        if (fragment === '') return;
         const result = textSplited.map((el) => {
             return checkRef(el, fragment, [
                 regRef.current.checked,
@@ -25,6 +25,10 @@ export default function WriteTxt() {
             ]);
         });
         textRef.current.innerHTML = result.join(' ');
+    };
+    const reset = () => {
+        const text = textRef.current.textContent;
+        textRef.current.innerHTML = text;
     };
 
     return (
@@ -46,7 +50,9 @@ export default function WriteTxt() {
                 <input
                     placeholder="Введіть фрагмент"
                     ref={fragmentRef}
-                    onChange={search}
+                    onInput={search}
+                    onClick={search}
+                    onBlur={reset}
                 />
                 <button onClick={search}>Search</button>
             </div>
