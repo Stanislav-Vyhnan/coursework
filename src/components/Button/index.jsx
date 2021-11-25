@@ -1,14 +1,18 @@
 import React from 'react';
 import './index.css';
 
-export default function Button({ btnRef, text, search }) {
+export default function Button({ data }) {
     return (
         <div className="btn">
             <label className="switch">
-                <input type="checkbox" ref={btnRef} onClick={search} />
+                <input
+                    type="checkbox"
+                    ref={data.btnRef}
+                    onClick={data.search}
+                />
                 <span className="slider round"></span>
             </label>
-            <span>{text}</span>
+            <span>{data.text}</span>
         </div>
     );
 }

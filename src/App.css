@@ -4,3 +4,8 @@
     align-items: center;
     padding: 20px;
 }
+
+div,
+input {
+    border-radius: 3%;
+}

@@ -11,7 +11,20 @@ export default function WriteTxt() {
     const strictRef = useRef(false);
     const selFragmRef = useRef(false);
 
-    useEffect(() => textRef.current.focus());
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('data'));
+        const text = localStorage.getItem('text');
+        if (data) {
+            regRef.current.checked = data.refs[0];
+            strictRef.current.checked = data.refs[1];
+            selFragmRef.current.checked = data.refs[2];
+
+            fragmentRef.current.value = data.fragment;
+        }
+        if (text) {
+            textRef.current.innerHTML = text;
+        }
+    }, []);
 
     const search = () => {
         const refChecked = [
@@ -20,25 +33,47 @@ export default function WriteTxt() {
             selFragmRef.current.checked,
         ];
 
-        const textSplited = textRef.current.textContent
-            .replace(/([.?!])\s*(?=[A-ZА-ЯІ])/g, '$1|')
-            .split('|');
-
         const fragment = fragmentRef.current.value;
-        if (fragment === '') return;
 
-        const result = textSplited.map((el) => {
-            return checkRef(el, fragment, refChecked);
-        });
+        if (fragment === '') {
+            setLocalStorage(fragment, refChecked);
+            reset();
+            return;
+        }
 
-        textRef.current.innerHTML = result.join(' ');
+        const textSplited = textRef.current.textContent.replace(
+            /([.!?])\s*(?=[A-ZА-ЯІ])/g,
+            '$1|'
+        );
+
+        const result = textSplited
+            .split('|')
+            .map((el) => {
+                return checkRef(el, fragment, refChecked);
+            })
+            .join(' ');
+
+        textRef.current.innerHTML = result;
+
+        localStorage.setItem('text', result);
+        setLocalStorage(fragment, refChecked);
     };
 
     const reset = () => {
         const text = textRef.current.textContent;
         textRef.current.innerHTML = text;
     };
+    const setLocalStorage = (fragment, refs) => {
+        const data = {
+            fragment: fragment,
+            refs: refs,
+        };
+        localStorage.setItem('data', JSON.stringify(data));
+    };
 
+    const setLocalText = () => {
+        localStorage.setItem('text', textRef.current.textContent);
+    };
     return (
         <main>
             <div>
@@ -48,9 +83,10 @@ export default function WriteTxt() {
                     className="writeTxt"
                     ref={textRef}
                     contentEditable="true"
+                    onInput={setLocalText}
                 />
             </div>
-            <div className="serch">
+            <div className="serch" onMouseLeave={reset} onMouseEnter={search}>
                 <b>Налаштування пошуку</b>
                 <SettingsSearch
                     {...{ regRef, strictRef, selFragmRef, search }}

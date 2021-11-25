@@ -8,26 +8,26 @@ export default function SettingsSearch({
     selFragmRef,
     search,
 }) {
-    const firstBtn = {
-        btnRef: regRef,
-        text: 'Ігнорування реєстру',
-        search,
-    };
-    const secondBtn = {
-        btnRef: strictRef,
-        text: 'Строгий режим',
-        search,
-    };
-    const ThirdBtn = {
-        btnRef: selFragmRef,
-        text: 'Виділення фрагменту',
-        search,
-    };
+    const dataSettings = [
+        {
+            id: 1,
+            data: { btnRef: regRef, text: 'Ігнорування реєстру', search },
+        },
+        {
+            id: 2,
+            data: { btnRef: strictRef, text: 'Строгий режим', search },
+        },
+        {
+            id: 3,
+            data: { btnRef: selFragmRef, text: 'Виділення фрагменту', search },
+        },
+    ];
+
     return (
         <div className="settings">
-            <Button {...firstBtn} />
-            <Button {...secondBtn} />
-            <Button {...ThirdBtn} />
+            {dataSettings.map((el) => (
+                <Button key={el.id} data={el.data} />
+            ))}
         </div>
     );
 }

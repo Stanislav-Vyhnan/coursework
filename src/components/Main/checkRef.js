@@ -1,17 +1,36 @@
-export default function checkRef(str, frag, ref) {
-    const copyStr = ref[0] ? str.toLowerCase() : str;
+export default function checkRef(org, frag, ref) {
+    const copyStr = ref[0] ? org.toLowerCase() : org;
     const copyFrag = ref[0] ? frag.toLowerCase() : frag;
+    let result;
+
     if (ref[1]) {
         const changeStr = copyStr
             .replace(/([ ])/g, '|')
-            .replace(/([!.])/g, '|$1')
+            .replace(/([!?])/g, '|$1')
+            .replace(/([.]{1,})/g, '|$1')
             .split('|');
-        return includ(changeStr, copyFrag, str);
+        result = includ(changeStr, copyFrag);
     } else {
-        return includ(copyStr, copyFrag, str);
+        result = includ(copyStr, copyFrag);
     }
+
+    if (!result) return org;
+    return `<span>${ref[2] ? selection(org, frag, ref[0]) : org}</span>`;
 }
 
-const includ = (el, frag, original) => {
-    return el.includes(frag) ? `<span>${original}</span>` : original;
+const includ = (copy, copyfrag) => {
+    return copy.includes(copyfrag);
 };
+
+const selection = (str, frag, toCase) => {
+    const regex = new RegExp('(' + [frag] + ')', 'g' + [toCase ? 'i' : '']);
+
+    const result = str.replace(regex, '<span id="black">$1</span>');
+
+    return result;
+};
+/*
+
+? `<span>${org}</span>` : org;
+
+*/
