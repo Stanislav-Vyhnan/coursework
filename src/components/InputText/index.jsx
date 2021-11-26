@@ -1,13 +1,18 @@
 import React from 'react';
 import './index.scss';
-const InputText = React.forwardRef(({ func }, ref) => (
-    <div
-        id="inputTxt"
-        className="writeTxt"
-        ref={ref}
-        contentEditable="true"
-        onInput={func}
-    />
-));
+const InputText = React.forwardRef(({ func, focus }, ref) => {
+    const [focusOn, focusOff] = focus;
+    return (
+        <div
+            id="inputTxt"
+            className="writeTxt"
+            ref={ref}
+            contentEditable="true"
+            onInput={func}
+            onClick={focusOn}
+            onBlur={focusOff}
+        />
+    );
+});
 
 export default InputText;

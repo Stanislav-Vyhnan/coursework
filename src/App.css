@@ -6,6 +6,7 @@
 }
 
 div,
-input {
+input,
+button {
     border-radius: 3%;
 }

@@ -1,12 +1,16 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './index.scss';
 import checkRef from './checkRef';
 import SettingsSearch from '../SettingsSearch';
 import InputText from '../InputText';
+import FragmentTxt from '../FragmentTxt';
 
 export default function WriteTxt() {
     const textRef = useRef(null);
     const fragmentRef = useRef(null);
+
+    const [clearCheck, setClear] = useState(0);
+    const [inputFocus, setFocus] = useState(false);
 
     const regRef = useRef(false);
     const strictRef = useRef(false);
@@ -15,19 +19,26 @@ export default function WriteTxt() {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('data'));
         const text = localStorage.getItem('text');
-        if (data) {
+        if (data !== null) {
             regRef.current.checked = data.refs[0];
             strictRef.current.checked = data.refs[1];
             selFragmRef.current.checked = data.refs[2];
 
             fragmentRef.current.value = data.fragment;
         }
-        if (text) {
+        if (text !== null) {
             textRef.current.innerHTML = text;
         }
-    }, []);
+    }, [clearCheck]);
+    const focusOn = () => {
+        setFocus(true);
+    };
+    const focusOff = () => {
+        setFocus(false);
+    };
 
     const search = () => {
+        if (inputFocus) return;
         const refChecked = [
             regRef.current.checked,
             strictRef.current.checked,
@@ -62,6 +73,7 @@ export default function WriteTxt() {
     };
 
     const reset = () => {
+        if (inputFocus) return;
         const text = textRef.current.textContent;
         textRef.current.innerHTML = text;
     };
@@ -78,25 +90,30 @@ export default function WriteTxt() {
         localStorage.setItem('text', textRef.current.textContent);
     };
 
+    const clear = () => {
+        setLocalStorage('', [false, false, false]);
+        textRef.current.textContent = '';
+        setLocalText();
+        setClear((x) => x + 1);
+    };
+
     return (
         <main>
+            <button onClick={clear}>Clear All</button>
             <div>
                 <b>Введіть текст:</b>
-                <InputText ref={textRef} func={setLocalText} />
+                <InputText
+                    ref={textRef}
+                    func={setLocalText}
+                    focus={[focusOn, focusOff]}
+                />
             </div>
             <div className="serch" onMouseLeave={reset} onMouseEnter={search}>
                 <b>Налаштування пошуку</b>
                 <SettingsSearch
                     {...{ regRef, strictRef, selFragmRef, search }}
                 />
-                <input
-                    placeholder="Введіть фрагмент"
-                    ref={fragmentRef}
-                    onInput={search}
-                    onClick={search}
-                    onBlur={reset}
-                />
-                <button onClick={search}>Search</button>
+                <FragmentTxt ref={fragmentRef} func={[search, reset]} />
             </div>
         </main>
     );
