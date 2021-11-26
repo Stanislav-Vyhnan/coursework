@@ -25,7 +25,7 @@ const includ = (copy, copyfrag) => {
 const selection = (str, frag, toCase) => {
     const regex = new RegExp('(' + [frag] + ')', 'g' + [toCase ? 'i' : '']);
 
-    const result = str.replace(regex, '<span id="black">$1</span>');
+    const result = str.replace(regex, '<span id="fragment">$1</span>');
 
     return result;
 };

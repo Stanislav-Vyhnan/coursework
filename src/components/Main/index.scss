@@ -1,0 +1,12 @@
+$b-color: white;
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    b {
+        font-size: 20px;
+        color: $b-color;
+    }
+}

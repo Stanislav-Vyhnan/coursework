@@ -1,0 +1,41 @@
+$settings-background-color: rgba(255, 255, 255, 0.7);
+$btn-background-color: #555555;
+$text-color: white;
+$first-box-shadow: rgba(0, 0, 0, 0.24);
+$second-box-shadow: rgba(0, 0, 0, 0.19);
+
+.serch {
+    display: flex;
+    flex-direction: column;
+
+    b {
+        margin-bottom: 5px;
+    }
+
+    .settings {
+        display: flex;
+        flex-direction: column;
+        background: $settings-background-color;
+        padding: 10px 15px 10px 0px;
+    }
+
+    input {
+        font-size: 18px;
+        height: 30px;
+        margin-top: 5px;
+    }
+
+    button {
+        font-size: 18px;
+        height: 40px;
+        transition-duration: 0.4s;
+        display: none;
+
+        &:hover {
+            background-color: $btn-background-color;
+            color: $text-color;
+            box-shadow: 0 12px 16px 0 $first-box-shadow,
+                0 17px 50px 0 $second-box-shadow;
+        }
+    }
+}

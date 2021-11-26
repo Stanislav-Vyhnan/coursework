@@ -1,0 +1,25 @@
+$background-color: rgba(255, 255, 255, 0.7);
+$sentence-color: red;
+$text-color: black;
+$fragment-color: purple;
+
+.writeTxt {
+    max-width: 500px;
+    min-width: 500px;
+    max-height: 600px;
+    min-height: 600px;
+    background: $background-color;
+    font-size: 20px;
+    margin: 10px;
+    padding: 8px;
+    overflow: auto;
+    color: $text-color;
+
+    span {
+        color: $sentence-color;
+    }
+    #fragment {
+        color: $fragment-color;
+        font-weight: 700;
+    }
+}

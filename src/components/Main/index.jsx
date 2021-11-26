@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react';
-import './index.css';
+import './index.scss';
 import checkRef from './checkRef';
 import SettingsSearch from '../SettingsSearch';
+import InputText from '../InputText';
 
 export default function WriteTxt() {
     const textRef = useRef(null);
@@ -37,6 +38,7 @@ export default function WriteTxt() {
 
         if (fragment === '') {
             setLocalStorage(fragment, refChecked);
+            setLocalText();
             reset();
             return;
         }
@@ -63,6 +65,7 @@ export default function WriteTxt() {
         const text = textRef.current.textContent;
         textRef.current.innerHTML = text;
     };
+
     const setLocalStorage = (fragment, refs) => {
         const data = {
             fragment: fragment,
@@ -74,17 +77,12 @@ export default function WriteTxt() {
     const setLocalText = () => {
         localStorage.setItem('text', textRef.current.textContent);
     };
+
     return (
         <main>
             <div>
                 <b>Введіть текст:</b>
-                <div
-                    id="inputTxt"
-                    className="writeTxt"
-                    ref={textRef}
-                    contentEditable="true"
-                    onInput={setLocalText}
-                />
+                <InputText ref={textRef} func={setLocalText} />
             </div>
             <div className="serch" onMouseLeave={reset} onMouseEnter={search}>
                 <b>Налаштування пошуку</b>
