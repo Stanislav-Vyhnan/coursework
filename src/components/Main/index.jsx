@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './index.scss';
+
 import checkRef from './checkRef';
 import SettingsSearch from '../SettingsSearch';
 import InputText from '../InputText';
