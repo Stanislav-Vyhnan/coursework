@@ -19,6 +19,7 @@ export default function WriteTxt() {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('data'));
         const text = localStorage.getItem('text');
+
         if (data !== null) {
             regRef.current.checked = data.refs[0];
             strictRef.current.checked = data.refs[1];
@@ -30,6 +31,7 @@ export default function WriteTxt() {
             textRef.current.innerHTML = text;
         }
     }, [clearCheck]);
+
     const focusOn = () => {
         setFocus(true);
     };
