@@ -1,17 +1,36 @@
 $settings-background-color: rgba(255, 255, 255, 0.7);
+$first-box-shadow: rgba(0, 0, 0, 0.24);
+$second-box-shadow: rgba(0, 0, 0, 0.19);
+$btn-background-color: #555555;
+$text-color: white;
 
-.serch {
+b {
+    margin-bottom: 5px;
+}
+
+.settings {
     display: flex;
     flex-direction: column;
+    background: $settings-background-color;
+    padding: 10px 15px 10px 0px;
 
-    b {
-        margin-bottom: 5px;
-    }
-
-    .settings {
+    .btnReset {
         display: flex;
-        flex-direction: column;
-        background: $settings-background-color;
-        padding: 10px 15px 10px 0px;
+        justify-content: center;
+
+        button {
+            font-size: 18px;
+            height: 40px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 20%;
+
+            &:hover {
+                background-color: $btn-background-color;
+                color: $text-color;
+                box-shadow: 0 12px 16px 0 $first-box-shadow,
+                    0 17px 50px 0 $second-box-shadow;
+            }
+        }
     }
 }

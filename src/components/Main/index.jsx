@@ -10,7 +10,7 @@ export default function WriteTxt() {
     const textRef = useRef(null);
     const fragmentRef = useRef(null);
 
-    const [clearCheck, setClear] = useState(0);
+    const [resetCheck, setReset] = useState(0);
 
     const [inputFocus, setFocus] = useState(false);
 
@@ -24,17 +24,16 @@ export default function WriteTxt() {
         if (data !== null) {
             regRef.current.checked = data.refs[0];
             strictRef.current.checked = data.refs[1];
-
             fragmentRef.current.value = data.fragment;
         }
         if (text !== null) {
             textRef.current.innerHTML = text;
         }
-    }, [clearCheck]);
+    }, [resetCheck]);
 
     const search = () => {
         if (inputFocus) return;
-
+        console.log(true);
         const refChecked = [regRef.current.checked, strictRef.current.checked];
 
         const fragment = fragmentRef.current.value;
@@ -42,7 +41,7 @@ export default function WriteTxt() {
         if (fragment === '') {
             setLocalStorage(fragment, refChecked);
             setLocalText();
-            reset();
+            clearSpan();
             return;
         }
 
@@ -64,7 +63,7 @@ export default function WriteTxt() {
         setLocalStorage(fragment, refChecked);
     };
 
-    const reset = () => {
+    const clearSpan = () => {
         if (inputFocus) return;
         const text = textRef.current.textContent;
         textRef.current.innerHTML = text;
@@ -82,24 +81,30 @@ export default function WriteTxt() {
         localStorage.setItem('text', textRef.current.textContent);
     };
 
-    const clear = () => {
+    const reset = () => {
         setLocalStorage('', [false, false, false]);
         textRef.current.textContent = '';
         setLocalText();
-        setClear((x) => x + 1);
+        setReset((x) => x + 1);
     };
 
     return (
         <main>
-            <button onClick={clear}>Clear All</button>
-            <div>
+            <div onMouseEnter={clearSpan} onMouseLeave={search}>
                 <b>Введіть текст:</b>
-                <InputText ref={textRef} func={setLocalText} focus={setFocus} />
+                <InputText
+                    ref={textRef}
+                    func={[setLocalText, search]}
+                    focus={setFocus}
+                />
             </div>
-            <div className="serch" onMouseLeave={reset} onMouseEnter={search}>
+            <div className="serch">
                 <b>Налаштування пошуку</b>
-                <SettingsSearch {...{ regRef, strictRef, search }} />
-                <FragmentTxt ref={fragmentRef} func={[search, reset]} />
+                <SettingsSearch
+                    func={[search, reset]}
+                    {...{ regRef, strictRef }}
+                />
+                <FragmentTxt ref={fragmentRef} func={[search, clearSpan]} />
             </div>
         </main>
     );

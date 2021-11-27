@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 const FragmentTxt = React.forwardRef(({ func }, ref) => {
-    const [search, reset] = func;
+    const [search, clearSpan] = func;
 
     return (
         <input
@@ -10,7 +10,7 @@ const FragmentTxt = React.forwardRef(({ func }, ref) => {
             ref={ref}
             onInput={search}
             onClick={search}
-            onBlur={reset}
+            onBlur={clearSpan}
             spellCheck="false"
         />
     );

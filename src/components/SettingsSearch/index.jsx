@@ -2,7 +2,8 @@ import React from 'react';
 import './index.scss';
 import Button from '../Button';
 
-export default function SettingsSearch({ regRef, strictRef, search }) {
+export default function SettingsSearch({ regRef, strictRef, func }) {
+    const [search, reset] = func;
     const dataSettings = [
         {
             id: 1,
@@ -19,6 +20,9 @@ export default function SettingsSearch({ regRef, strictRef, search }) {
             {dataSettings.map((el) => (
                 <Button key={el.id} data={el.data} />
             ))}
+            <div className="btnReset">
+                <button onClick={reset}>Reset All</button>
+            </div>
         </div>
     );
 }
