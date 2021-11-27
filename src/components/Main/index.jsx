@@ -11,6 +11,7 @@ export default function WriteTxt() {
     const fragmentRef = useRef(null);
 
     const [clearCheck, setClear] = useState(0);
+
     const [inputFocus, setFocus] = useState(false);
 
     const regRef = useRef(false);
@@ -33,15 +34,9 @@ export default function WriteTxt() {
         }
     }, [clearCheck]);
 
-    const focusOn = () => {
-        setFocus(true);
-    };
-    const focusOff = () => {
-        setFocus(false);
-    };
-
     const search = () => {
         if (inputFocus) return;
+
         const refChecked = [
             regRef.current.checked,
             strictRef.current.checked,
@@ -105,11 +100,7 @@ export default function WriteTxt() {
             <button onClick={clear}>Clear All</button>
             <div>
                 <b>Введіть текст:</b>
-                <InputText
-                    ref={textRef}
-                    func={setLocalText}
-                    focus={[focusOn, focusOff]}
-                />
+                <InputText ref={textRef} func={setLocalText} focus={setFocus} />
             </div>
             <div className="serch" onMouseLeave={reset} onMouseEnter={search}>
                 <b>Налаштування пошуку</b>

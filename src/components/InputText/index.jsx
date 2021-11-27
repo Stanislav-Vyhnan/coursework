@@ -1,7 +1,12 @@
 import React from 'react';
 import './index.scss';
 const InputText = React.forwardRef(({ func, focus }, ref) => {
-    const [focusOn, focusOff] = focus;
+    const focusOn = () => {
+        focus(true);
+    };
+    const focusOff = () => {
+        focus(false);
+    };
     return (
         <div
             id="inputTxt"

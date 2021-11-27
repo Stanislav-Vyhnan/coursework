@@ -19,7 +19,9 @@ export default function checkRef(org, frag, ref) {
     } else {
         result = selection(org, regExp);
     }
-    return org.length === result.length ? org : `<span>${result}</span>`;
+    return org.length === result.length
+        ? `<span id="hide">${org}</span>`
+        : `<span>${result}</span>`;
 }
 
 const selection = (str, regex) => {
