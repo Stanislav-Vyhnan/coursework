@@ -11,6 +11,7 @@ const InputText = React.forwardRef(({ func, focus }, ref) => {
             onInput={func}
             onClick={focusOn}
             onBlur={focusOff}
+            spellCheck="false"
         />
     );
 });

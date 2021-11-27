@@ -10,6 +10,7 @@ const FragmentTxt = React.forwardRef(({ func }, ref) => {
             onInput={search}
             onClick={search}
             onBlur={reset}
+            spellCheck="false"
         />
     );
 });
