@@ -21,7 +21,7 @@ export default function checkRef(org, frag, ref) {
     }
     return org.length === result.length
         ? `<span class="hide">${org}</span>`
-        : `<span>${result}</span>`;
+        : `<span class="sentence">${result}</span>`;
 }
 
 const selection = (str, regex) => {
