@@ -1,32 +1,37 @@
 export default function checkRef(org, frag, ref) {
-    const copyStr = ref[0] ? org.toLowerCase() : org;
-    const copyFrag = ref[0] ? frag.toLowerCase() : frag;
+    const corectFrag = frag.replace(/([[\]\\^$.|?*+()])/g, '\\$1');
+    const regex = new RegExp('(' + corectFrag + ')', 'g' + [ref[0] ? 'i' : '']);
     let result;
-
     if (ref[1]) {
-        const changeStr = copyStr
-            .replace(/([ ])/g, '|')
-            .replace(/([!?])/g, '|$1')
-            .replace(/([.]{1,})/g, '|$1')
+        const orgArr = org
+            .replace(/( )/g, '|$1|')
+            .replace(/(([—!?,:"@$%^&*#)\]])|(\.){1,})/g, '|$1')
+            .replace(/([({[])/g, '$1|')
             .split('|');
-        result = includ(changeStr, copyFrag);
+        result = orgArr
+            .map((el) => {
+                return el.length === frag.length ? selection(el, regex) : el;
+            })
+            .join('');
     } else {
-        result = includ(copyStr, copyFrag);
+        result = selection(org, regex);
     }
-
-    if (!result) return org;
-
-    return `<span>${ref[2] ? selection(org, frag, ref[0]) : org}</span>`;
+    return org.length === result.length ? org : `<span>${result}</span>`;
 }
 
-const includ = (copy, copyfrag) => {
-    return copy.includes(copyfrag);
-};
-
-const selection = (str, frag, toCase) => {
-    const regex = new RegExp('([' + frag + '])', 'g' + [toCase ? 'i' : '']);
-
-    const result = str.replace(regex, '<span id="fragment">$1</span>');
-
+const selection = (str, regExp) => {
+    const result = str.replace(regExp, '<span id="fragment">$1</span>');
     return result;
 };
+
+/*
+
+const result = ref[1]
+        ? copyStr
+              .replace(/([ ])/g, '|$1|')
+              .replace(/(([!?,"@$%^&*#)\]])|(\.){1,})/g, '|$1')
+              .replace(/([({[])/g, '$1|')
+              .split('|')
+              .includes(copyFrag)
+        : copyStr.includes(copyFrag);
+        if (!result) return org;*/
