@@ -20,11 +20,11 @@ export default function checkRef(org, frag, ref) {
         result = selection(org, regExp);
     }
     return org.length === result.length
-        ? `<span id="hide">${org}</span>`
+        ? `<span class="hide">${org}</span>`
         : `<span>${result}</span>`;
 }
 
 const selection = (str, regex) => {
-    const result = str.replace(regex, '<span id="fragment">$1</span>');
+    const result = str.replace(regex, '<span class="fragment">$1</span>');
     return result;
 };

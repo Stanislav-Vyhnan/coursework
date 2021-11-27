@@ -2,12 +2,7 @@ import React from 'react';
 import './index.scss';
 import Button from '../Button';
 
-export default function SettingsSearch({
-    regRef,
-    strictRef,
-    selFragmRef,
-    search,
-}) {
+export default function SettingsSearch({ regRef, strictRef, search }) {
     const dataSettings = [
         {
             id: 1,
@@ -16,10 +11,6 @@ export default function SettingsSearch({
         {
             id: 2,
             data: { btnRef: strictRef, text: 'Строгий режим', search },
-        },
-        {
-            id: 3,
-            data: { btnRef: selFragmRef, text: 'Виділення фрагменту', search },
         },
     ];
 

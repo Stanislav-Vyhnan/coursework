@@ -16,7 +16,6 @@ export default function WriteTxt() {
 
     const regRef = useRef(false);
     const strictRef = useRef(false);
-    const selFragmRef = useRef(false);
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('data'));
@@ -25,7 +24,6 @@ export default function WriteTxt() {
         if (data !== null) {
             regRef.current.checked = data.refs[0];
             strictRef.current.checked = data.refs[1];
-            selFragmRef.current.checked = data.refs[2];
 
             fragmentRef.current.value = data.fragment;
         }
@@ -37,11 +35,7 @@ export default function WriteTxt() {
     const search = () => {
         if (inputFocus) return;
 
-        const refChecked = [
-            regRef.current.checked,
-            strictRef.current.checked,
-            selFragmRef.current.checked,
-        ];
+        const refChecked = [regRef.current.checked, strictRef.current.checked];
 
         const fragment = fragmentRef.current.value;
 
@@ -104,9 +98,7 @@ export default function WriteTxt() {
             </div>
             <div className="serch" onMouseLeave={reset} onMouseEnter={search}>
                 <b>Налаштування пошуку</b>
-                <SettingsSearch
-                    {...{ regRef, strictRef, selFragmRef, search }}
-                />
+                <SettingsSearch {...{ regRef, strictRef, search }} />
                 <FragmentTxt ref={fragmentRef} func={[search, reset]} />
             </div>
         </main>

@@ -9,7 +9,6 @@ const InputText = React.forwardRef(({ func, focus }, ref) => {
     };
     return (
         <div
-            id="inputTxt"
             className="writeTxt"
             ref={ref}
             contentEditable="true"
