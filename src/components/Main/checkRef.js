@@ -15,6 +15,7 @@ export default function checkRef(org, frag, ref) {
     }
 
     if (!result) return org;
+
     return `<span>${ref[2] ? selection(org, frag, ref[0]) : org}</span>`;
 }
 
@@ -23,14 +24,9 @@ const includ = (copy, copyfrag) => {
 };
 
 const selection = (str, frag, toCase) => {
-    const regex = new RegExp('(' + [frag] + ')', 'g' + [toCase ? 'i' : '']);
+    const regex = new RegExp('([' + frag + '])', 'g' + toCase ? 'i' : '');
 
     const result = str.replace(regex, '<span id="fragment">$1</span>');
 
     return result;
 };
-/*
-
-? `<span>${org}</span>` : org;
-
-*/
