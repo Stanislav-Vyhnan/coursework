@@ -20,10 +20,11 @@ export default function WriteTxt() {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('data'));
         const text = localStorage.getItem('text');
+        const [toCase, strictMode] = data.refs;
 
         if (data !== null) {
-            regRef.current.checked = data.refs[0];
-            strictRef.current.checked = data.refs[1];
+            regRef.current.checked = toCase;
+            strictRef.current.checked = strictMode;
             fragmentRef.current.value = data.fragment;
         }
         if (text !== null) {
@@ -33,7 +34,7 @@ export default function WriteTxt() {
 
     const search = () => {
         if (inputFocus) return;
-        console.log(true);
+
         const refChecked = [regRef.current.checked, strictRef.current.checked];
 
         const fragment = fragmentRef.current.value;
@@ -45,16 +46,12 @@ export default function WriteTxt() {
             return;
         }
 
-        const textSplited = textRef.current.textContent.replace(
-            /([.!?])\s*(?=[A-ZА-ЯІ])/g,
-            '$1|'
-        );
+        const textSplited = textRef.current.textContent
+            .replace(/([.!?])\s*(?=[A-ZА-ЯІ])/g, '$1|')
+            .split('|');
 
         const result = textSplited
-            .split('|')
-            .map((el) => {
-                return checkRef(el, fragment, refChecked);
-            })
+            .map((el) => checkRef(el, fragment, refChecked))
             .join(' ');
 
         textRef.current.innerHTML = result;
@@ -92,11 +89,7 @@ export default function WriteTxt() {
         <main>
             <div onMouseEnter={clearSpan} onMouseLeave={search}>
                 <b>Введіть текст:</b>
-                <InputText
-                    ref={textRef}
-                    func={[setLocalText, search]}
-                    focus={setFocus}
-                />
+                <InputText ref={textRef} {...setLocalText} focus={setFocus} />
             </div>
             <div className="serch">
                 <b>Налаштування пошуку</b>
