@@ -47,7 +47,7 @@ export default function WriteTxt() {
         }
 
         const textSplited = textRef.current.textContent
-            .replace(/([.!?])\s*(?=[A-ZА-ЯІ])/g, '$1|')
+            .replace(/([.!?])\s*(?=[A-ZА-ЯІЇЄ])/g, '$1|')
             .split('|');
 
         const result = textSplited
