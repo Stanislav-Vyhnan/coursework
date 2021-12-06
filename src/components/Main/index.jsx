@@ -20,9 +20,9 @@ export default function WriteTxt() {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('data'));
         const text = localStorage.getItem('text');
-        const [toCase, strictMode] = data.refs;
 
         if (data !== null) {
+            const [toCase, strictMode] = data.refs;
             regRef.current.checked = toCase;
             strictRef.current.checked = strictMode;
             fragmentRef.current.value = data.fragment;
@@ -89,15 +89,15 @@ export default function WriteTxt() {
         <main>
             <div onMouseEnter={clearSpan} onMouseLeave={search}>
                 <b>Введіть текст:</b>
-                <InputText ref={textRef} {...setLocalText} focus={setFocus} />
+                <InputText ref={textRef} funcs={[setLocalText, setFocus]} />
             </div>
             <div className="serch">
                 <b>Налаштування пошуку</b>
                 <SettingsSearch
-                    func={[search, reset]}
+                    funcs={[search, reset]}
                     {...{ regRef, strictRef }}
                 />
-                <FragmentTxt ref={fragmentRef} func={[search, clearSpan]} />
+                <FragmentTxt ref={fragmentRef} funcs={[search, clearSpan]} />
             </div>
         </main>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.scss';
-const InputText = React.forwardRef(({ setLocalText, focus }, ref) => {
+const InputText = React.forwardRef(({ funcs }, ref) => {
+    const [setLocalText, focus] = funcs;
     const focusOn = () => {
         focus(true);
     };

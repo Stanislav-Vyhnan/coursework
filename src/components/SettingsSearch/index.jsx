@@ -2,8 +2,8 @@ import React from 'react';
 import './index.scss';
 import Button from '../Button';
 
-export default function SettingsSearch({ regRef, strictRef, func }) {
-    const [search, reset] = func;
+export default function SettingsSearch({ regRef, strictRef, funcs }) {
+    const [search, reset] = funcs;
     const dataSettings = [
         {
             id: 1,

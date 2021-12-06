@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.scss';
 
-const FragmentTxt = React.forwardRef(({ func }, ref) => {
-    const [search, clearSpan] = func;
+const FragmentTxt = React.forwardRef(({ funcs }, ref) => {
+    const [search, clearSpan] = funcs;
 
     return (
         <input
